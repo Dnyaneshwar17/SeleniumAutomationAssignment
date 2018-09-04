@@ -1,0 +1,7 @@
+{
+  "test_cases_survey.py::test_question_2": true,
+  "test_cases_survey.py::test_question_9": true,
+  "testsuite.py::TestStartSurvey::test_createsurvey": true,
+  "testsuite.py::TestStartSurvey::test_start_survey": true,
+  "testsuite.py::TestStartSurvey::test_survey_title": true
+}
