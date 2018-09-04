@@ -1,0 +1,6 @@
+[
+  "test_cases_survey.py::test_validLogin",
+  "test_cases_survey.py::test_create_survey",
+  "test_cases_survey.py::test_survey_operation",
+  "test_cases_survey.py::test_question_6"
+]
