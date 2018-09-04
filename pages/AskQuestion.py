@@ -56,6 +56,7 @@ class AskQuestion(BasePage):
 
 
     #Six Question:
+    valid_que_6="//span[text()='Check the Features you like about SurveyMonkey?']"
     six_question_pattern = "//ul[@class='add-q-menu-left']//a[text()='Checkboxes']"
     six_question_1 = "//table[@id='rows']/tbody[@class='answerSetting singleLine']/tr[4]/td[2]/div/div[1]"
     six_question_2 = "//table[@id='rows']/tbody[@class='answerSetting singleLine']/tr[5]/td[2]/div/div[1]"
@@ -64,6 +65,7 @@ class AskQuestion(BasePage):
     six_question_5 = "//table[@id='rows']/tbody[@class='answerSetting singleLine']/tr[8]/td[2]/div/div[1]"
 
     # seven question
+    valid_que_7="//span[text()='Rate our features. (Matrix Rating Scale)']"
     seven_question_pattern = "//ul[@class='add-q-menu-right']//a[text()='Matrix / Rating Scale']"
     seven_question_1 = "//table[@id='rows']/tbody[@class='answerSettingMatrix singleLine']/tr[3]/td[1]/div/div[1]"
     seven_question_2 = "//table[@id='rows']/tbody[@class='answerSettingMatrix singleLine']/tr[4]/td[1]/div/div[1]"
@@ -74,6 +76,7 @@ class AskQuestion(BasePage):
     seven_question_7 = "//div[@id='columnsWrap']//table/tbody[@class='columnSetting singleLine']/tr[5]/td[1]/div/div[1]"
 
     #Eight Question
+    valid_que_8="//span[text()='List the features you like most.']"
     eight_question_pattern="//ul[@class='add-q-menu-right']//a[text()='Multiple Textboxes']"
     eight_question_1 = "//table[@id='rows']/tbody[@class='answerSettingTextboxes']/tr[3]/td[1]/div/div[1]"
     eight_question_2 = "//table[@id='rows']/tbody[@class='answerSettingTextboxes']/tr[4]/td[1]/div/div[1]"
@@ -84,6 +87,17 @@ class AskQuestion(BasePage):
     # Ten Question
     ten_question_pattern = "//ul[@class='add-q-menu-left']//a[text()='Comment Box']"
     valid_que_10 = "//span[text()='Comments / Feedback (Text-area)']"
+
+
+    #Drag and Drop
+    click_drag_drop = "//div[@class='add-question-btn zero-state-hide ui-droppable']"
+    question_edit = "editQuestion"
+    question_first_type = "//span[@class='listText' and text()='Star Rating']"
+    click_select_box = "//li[@title='Builder']"
+    #click_select_box = "//li[@class='nav-tabs-select-style']"
+    question_type = "editQuestion"
+    question_set = "changeQType"
+
 
 
     def save_button(self):
@@ -106,16 +120,27 @@ class AskQuestion(BasePage):
     #     self.wait_for_element(self.third_nine_question_select_pattern, locator_type="xpath", timeout=5, pollFrequency=1)
     #     self.element_click(self.third_nine_question_select_pattern)
 
+    def drag_drop_first(self, four_question_enter):
+        self.element_click(self.click_select_box, locator_type="xpath")
+        self.web_scroll(direction="down")
+        self.drag_drop(self.question_first_type, self.click_dropdown, locator_type="xpath")
+        self.element_click(self.question_set)
+        self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
+        self.send_keys(four_question_enter, self._enter_question)
+        AskQuestion.save_button(self)
+
     def first_question(self, first_question_enter=""):
-        time.sleep(5)
+        #time.sleep(5)
+        self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(first_question_enter, self._enter_question)
         AskQuestion.enter_question_type(self)
+        self.wait_for_element(locator=self.first_question_pattern, timeout=5, pollFrequency=1)
         self.element_click(self.first_question_pattern, locator_type="xpath")
         AskQuestion.save_button(self)
         #AskQuestion.next_question(self)
 
     def second_question(self, second_question_enter=""):
-        time.sleep(5)
+        #time.sleep(5)
         AskQuestion.next_question(self)
         self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(second_question_enter, self._enter_question)
@@ -125,7 +150,7 @@ class AskQuestion(BasePage):
         AskQuestion.save_button(self)
 
     def four_question(self, four_question_enter=""):
-        time.sleep(5)
+        #time.sleep(5)
         AskQuestion.next_question(self)
         self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(four_question_enter, self._enter_question)
@@ -134,7 +159,7 @@ class AskQuestion(BasePage):
         AskQuestion.save_button(self)
 
     def third_question(self, third_question_enter=""):
-        time.sleep(5)
+        #time.sleep(5)
         AskQuestion.next_question(self)
         self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(third_question_enter, self._enter_question)
@@ -146,7 +171,7 @@ class AskQuestion(BasePage):
         AskQuestion.save_button(self)
 
     def five_question(self, five_question=""):
-        time.sleep(5)
+        #time.sleep(5)
         AskQuestion.next_question(self)
         self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(five_question, self._enter_question)
@@ -158,7 +183,7 @@ class AskQuestion(BasePage):
         AskQuestion.save_button(self)
 
     def nine_question(self, nine_question_enter=""):
-        time.sleep(5)
+        #time.sleep(5)
         AskQuestion.next_question(self)
         self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(nine_question_enter, self._enter_question)
@@ -171,7 +196,7 @@ class AskQuestion(BasePage):
         AskQuestion.next_question(self)
 
     def ten_question(self, ten_question_enter=""):
-        time.sleep(5)
+        #time.sleep(5)
         AskQuestion.next_question(self)
         self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(ten_question_enter, self._enter_question)
@@ -181,12 +206,8 @@ class AskQuestion(BasePage):
         AskQuestion.save_button(self)
 
     def six_question(self, six_question_enter=""):
-        time.sleep(10)
-        self.wait_for_element(locator=self.select_builder, timeout=5, pollFrequency=1)
-        self.element_click(self.select_builder, locator_type="xpath")
-        time.sleep(10)
-        self.wait_for_element(locator=self.click_dropdown, timeout=5, pollFrequency=1)
-        self.element_click(self.click_dropdown, locator_type="xpath")
+        #time.sleep(5)
+        AskQuestion.next_question(self)
         self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(six_question_enter, self._enter_question)
         AskQuestion.enter_question_type(self)
@@ -202,7 +223,9 @@ class AskQuestion(BasePage):
         self.send_keys(six_5, self.six_question_5, locator_type="xpath")
 
     def seven_question(self, seven_question_enter=""):
-        time.sleep(5)
+        #time.sleep(5)
+        AskQuestion.next_question(self)
+        self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(seven_question_enter, self._enter_question)
         AskQuestion.enter_question_type(self)
         self.wait_for_element(locator=self.seven_question_pattern, locator_type="xpath", pollFrequency=1)
@@ -221,7 +244,9 @@ class AskQuestion(BasePage):
         self.send_keys(seven_7, self.seven_question_7, locator_type="xpath")
 
     def eight_question(self, eight_question_enter=""):
-        time.sleep(5)
+        #time.sleep(5)
+        AskQuestion.next_question(self)
+        self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         self.send_keys(eight_question_enter, self._enter_question)
         AskQuestion.enter_question_type(self)
         self.wait_for_element(locator=self.eight_question_pattern, locator_type="xpath", pollFrequency=1)
@@ -237,18 +262,24 @@ class AskQuestion(BasePage):
         self.send_keys(six_4, self.eight_question_4, locator_type="xpath")
         self.send_keys(six_5, self.eight_question_5, locator_type="xpath")
 
-    def verify_question(self):
-        self.wait_for_element(locator=self._survey_body, timeout=5, pollFrequency=1)
-        result = self.is_element_present(locator=self._survey_body)
-        return result
-
-    # def first_question(self, first_question_enter=""):
+    # def drag_drop_first(self, four_question=" "):
     #     time.sleep(5)
-    #     self.send_keys(first_question_enter, self._enter_question)
-    #     AskQuestion.enter_question_type(self)
-    #     self.element_click(self.first_question_pattern, locator_type="xpath")
+    #     self.element_click(self._click_select_box, locator_type="xpath")
+    #     time.sleep(3)
+    #     self.element_click(self._first_question_type,locator_type="xpath")
+    #     time.sleep(3)
+    #     self.element_click(self._click_drag_drop,locator_type="xpath")
+    #     time.sleep(3)
+    #     # self.element_click(self._question_edit,locator_type="id")
+    #     # time.sleep(3)
+    #     self.send_keys(four_question, self._enter_question)
     #     AskQuestion.save_button(self)
 
+
+    # def verify_question(self):
+    #     self.wait_for_element(locator=self._survey_body, timeout=5, pollFrequency=1)
+    #     result = self.is_element_present(locator=self._survey_body)
+    #     return result
     def valid_first_question(self):
         time.sleep(5)
         self.wait_for_element(locator=self.valid_que_1, timeout=5, pollFrequency=1)
@@ -257,8 +288,7 @@ class AskQuestion(BasePage):
         result = self.get_element(locator=self._enter_question, locator_type="id").text
         self.element_click(self.cancle_button, locator_type="xpath")
         if result == (first_question_enter):
-           print("show:" +result)
-           return result
+          return result
         else:
             result = False
             return result
@@ -301,7 +331,6 @@ class AskQuestion(BasePage):
             result = False
             return result
 
-
     def valid_five_question(self):
         time.sleep(5)
         self.wait_for_element(locator=self.valid_que_5, timeout=5, pollFrequency=1)
@@ -314,6 +343,41 @@ class AskQuestion(BasePage):
             result = False
             return result
 
+    def valid_six_question(self):
+        time.sleep(5)
+        self.wait_for_element(locator=self.valid_que_6, timeout=5, pollFrequency=1)
+        self.element_click(self.valid_que_6, locator_type="xpath")
+        result = AskQuestion.valid_common_toAll(self)
+        if result == (six_question_enter):
+            print("result for six:" + result)
+            return result
+        else:
+            result = False
+            return result
+
+    def valid_eight_question(self):
+        time.sleep(5)
+        self.wait_for_element(locator=self.valid_que_8, timeout=5, pollFrequency=1)
+        self.element_click(self.valid_que_8, locator_type="xpath")
+        result = AskQuestion.valid_common_toAll(self)
+        if result == (eight_question_enter):
+            print("result for six:" + result)
+            return result
+        else:
+            result = False
+            return result
+
+    def valid_seven_question(self):
+        time.sleep(5)
+        self.wait_for_element(locator=self.valid_que_7, timeout=5, pollFrequency=1)
+        self.element_click(self.valid_que_7, locator_type="xpath")
+        result = AskQuestion.valid_common_toAll(self)
+        if result == (seven_question_enter):
+            print("result for six:" + result)
+            return result
+        else:
+            result = False
+            return result
 
     def valid_nine_question(self):
         time.sleep(5)
@@ -327,7 +391,6 @@ class AskQuestion(BasePage):
             result = False
             return result
 
-
     def valid_ten_question(self):
         time.sleep(5)
         self.wait_for_element(locator=self.valid_que_10, timeout=5, pollFrequency=1)
@@ -340,8 +403,6 @@ class AskQuestion(BasePage):
             result = False
             return result
 
-
-
     def valid_common_toAll(self):
         self.wait_for_element(locator=self._enter_question, timeout=5, pollFrequency=1)
         result = self.get_element(locator=self._enter_question, locator_type="id").text
@@ -350,38 +411,3 @@ class AskQuestion(BasePage):
         return result
 
 
-    def valid_all_question(self):
-        try:
-           result = self.valid_first_question()
-           assert (result == True)
-
-        except Exception as e:
-           print("Question Adding Failed" + str(e))
-
-       # self.question.valid_second_question()
-    # assert (result == True)
-
-    # self.question.valid_third_question()
-    # assert (result == True)
-    #
-    # self.question.valid_four_question()
-    # assert (result == True)
-    #
-    # self.question.valid_five_question()
-    # assert (result == True)
-    #
-    # self.question.valid_six_question()
-    # assert (result == True)
-    #
-    # self.question.valid_seven_question()
-    # assert (result == True)
-    #
-    # self.question.valid_eight_question()
-    # assert (result == True)
-    #
-    # self.question.valid_nini_question()
-    # assert (result == True)
-    #
-    # self.question.valid_ten_question()
-    # result = self.ss.valid_page_title()
-    # assert result == True
